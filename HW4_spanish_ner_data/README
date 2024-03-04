@@ -1,0 +1,39 @@
+Procedure to Run the ner_spanish.ipynb file to perform NER tagging on spanish data with python.
+Given Files:
+- test_noans.csv
+- train.csv
+- validation.csv
+Make sure the .csv files have the format id,word,type,label for train.csv and validation.csv and 
+test_noans.csv have the format id,word.
+Create File:
+- test_answer.csv
+
+Install the necessary libraries and languages if not pre-installed (.ipynb files should have came pre-installed with python):
+- ! pip install sklearn
+- ! pip install sklearn_crfsuite
+- ! pip install pandas
+- ! pip install numpy
+- ! pip install csv
+
+For the variables train, validate, test, test_noans, and test_answer, copy the file paths for the above files
+into the function parameters respecitvely. Test and test_noans variables utilize the same test.csv file and 
+in order to output values to test_answer.csv files the file path must be inputted into the .to_csv parameter
+(I found that the actual file path works the best, but relative file path should work if in the same folder)
+
+Adjustable functions:
+- words2feature - add to or modify the feature function in order to generate more specific and relavant features
+- crf algorithm parameter allowed values:
+  - 'lbfgs'-Gradient descent using the L-BFGS method (max_iterations = unlimited)
+  - 'l2sgd'-Stochastic Gradient Descent with L2 regularization term (max_iterations = 1000)
+  - 'ap'-Averaged Perceptron (max_iterations = 100)
+  - 'pa'-Passive Aggressive (PA) (max_iterations = 100)
+  - 'arow'-Adaptive Regularization Of Weight Vector (AROW) (max_iterations = 100)
+- params_space:
+  - c1 & c2 (higher values = larger steps, more inaccurate but faster; vise versa)
+- RandomizedSearchCV (can use any CV model such as GridSearchCV):
+  - cv - number of folds 
+  - n_iter - number of candidates
+These functions are adjustable and can be optimized to achieve better results
+
+Procedure: run each of the squares in sequential order, make sure to rerun any subsequent squares if changes are made. 
+If done correctly test_answer.csv should be populated with id,label predicting the label of the specific word.
